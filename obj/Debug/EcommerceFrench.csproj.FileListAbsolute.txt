@@ -1,7 +1,11 @@
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\EcommerceFrench.csprojResolveAssemblyReference.cache
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\EcommerceFrench.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\EcommerceFrench.pdb
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\EcommerceFrench.EcommerceFrench.apk
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\EcommerceFrench.EcommerceFrench-Signed.apk
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Square.OkHttp.dll
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Square.OkIO.dll
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Square.Picasso.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.Animated.Vector.Drawable.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.Compat.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.Core.UI.dll
@@ -13,7 +17,6 @@ C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceF
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.v7.AppCompat.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.v7.RecyclerView.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\Xamarin.Android.Support.Vector.Drawable.dll
-C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\EcommerceFrench.csprojResolveAssemblyReference.cache
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\EcommerceFrench.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\EcommerceFrench.pdb
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\bin\EcommerceFrench.EcommerceFrench.apk
@@ -26,6 +29,7 @@ C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceF
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\layout\pager_item.xml
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\layout\fragscpi.xml
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\layout\fragsearch.xml
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\layout\fragquicksearch.xml
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\layout\main.xml
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\values\strings.xml
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\icon.png
@@ -39,9 +43,9 @@ C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceF
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\sixth.jpg
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\third.jpg
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\banerr.png
-C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\xicon.png
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\scpilogo.jpeg
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\drawerbutton.jpg
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\res\drawable\xiconi.png
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\R.cs.flag
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\uploadflags.txt
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\bin\Debug\EcommerceFrench.dll.mdb

@@ -15,21 +15,31 @@ namespace EcommerceFrench
     class BanerDialog : DialogFragment
     {
         private ImageButton icon;
+        private ImageView image;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
 
             View view = inflater.Inflate(Resource.Layout.dialog,container,false);
+            image = view.FindViewById<ImageView>(Resource.Id.imgBaner);
             icon = view.FindViewById<ImageButton>(Resource.Id.xicon);
 
+            icon.Click += (s, e) =>
+            {
+                Dismiss();
 
-            icon.Click += Icon_Click;
+            };
+
+            image.Click += (s, e) =>
+             {
+                 var uri = Android.Net.Uri.Parse("https://nest.com/thermostat/meet-nest-thermostat/");
+                 var intent = new Intent(Intent.ActionView, uri);
+                 StartActivity(intent);
+             };
+
             return view;
         }
 
-        private void Icon_Click(object sender, EventArgs e)
-        {
-            Dismiss();
-        }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {

@@ -6,6 +6,9 @@ C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceF
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\System.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\System.Xml.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\System.Xml.Linq.dll
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Square.OkHttp.dll
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Square.OkIO.dll
+C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Square.Picasso.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Xamarin.Android.Support.Animated.Vector.Drawable.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Xamarin.Android.Support.Compat.dll
 C:\Users\Laptop\documents\visual studio 2015\Projects\EcommerceFrench\EcommerceFrench\obj\Debug\android\assets\Xamarin.Android.Support.Core.UI.dll

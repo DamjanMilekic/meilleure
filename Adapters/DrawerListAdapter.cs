@@ -52,22 +52,22 @@ namespace EcommerceFrench
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View row = convertView;
+            View view = convertView;
             var item = mItems[position];
 
-            if (row==null)
+            if (view==null)
             {
-                row = LayoutInflater.From(mContext).Inflate(Resource.Layout.drawableListRow, null, false);
+                view = LayoutInflater.From(mContext).Inflate(Resource.Layout.drawableListRow, null, false);
             }
 
-            ImageView image = row.FindViewById<ImageView>(Resource.Id.imageView1);
-            TextView text = row.FindViewById<TextView>(Resource.Id.textView1);
+            ImageView imagRow = view.FindViewById<ImageView>(Resource.Id.imageView1);
+            TextView textRow = view.FindViewById<TextView>(Resource.Id.textView1);
             
-                 text.Text = mItems[position].menuText;
+                 textRow.Text = mItems[position].MenuText;
 
-                 image.SetImageResource(mItems[position].menuImage);
+                 imagRow.SetImageResource(mItems[position].MenuImage);
 
-            return row;
+            return view;
         }
     }
 }

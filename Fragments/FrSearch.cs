@@ -12,55 +12,119 @@ using Android.Views;
 using Android.Widget;
 using System.Xml;
 using EcommerceFrench.Models;
+using Android.Views.InputMethods;
+using System.Threading;
 
 namespace EcommerceFrench.Fragments
 {
     public class FrSearch : Fragment
     {
 
-        private string value4Input;
-        private Context mcontext;
+        private string valueForInput;
+        private Context mContext;
+
         List<string> listModel = new List<string>();
-        List<string> helpList = new List<string>();
+        List<string> showingList = new List<string>();
+        List<ActualitesModel> helpList = new List<ActualitesModel>();
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+          
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            mcontext = container.Context;
+           
             View view = inflater.Inflate(Resource.Layout.fragSearch, container, false);
-            EditText input = view.FindViewById<EditText>(Resource.Id.searchInput);
-            ListView list = view.FindViewById<ListView>(Resource.Id.listsearch);
+            mContext = container.Context;
+            EditText inputTextView = view.FindViewById<EditText>(Resource.Id.searchInput);
+            ListView listView = view.FindViewById<ListView>(Resource.Id.listsearch);
 
 
-            input.KeyPress += (object sender, View.KeyEventArgs e) => {
+            InputMethodManager hideKeyboard = (InputMethodManager)mContext.GetSystemService(Context.InputMethodService);
+            hideKeyboard.HideSoftInputFromWindow(inputTextView.WindowToken, 0);
+
+            inputTextView.EditorAction += (object sender, EditText.EditorActionEventArgs e) =>
+            {
+                int prg;
                 e.Handled = false;
-                if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
+                if (e.ActionId == ImeAction.Search)
                 {
-                    value4Input = input.Text;
+                    ProgressDialog progressDialog = new ProgressDialog(mContext);
+                    progressDialog.SetMessage("please wait");
+                    progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                    progressDialog.Progress = 0;
+                    progressDialog.Max = 100;
+                    progressDialog.Show();
+                    prg = 0;
+                    listModel.Clear();
+                    helpList.Clear();
+                    listView.Adapter = null;
+                    valueForInput = inputTextView.Text;
+                    new Thread(new ThreadStart(delegate
+                    {
 
-                    searchxml();
-                    showXML(listModel);
-                    ArrayAdapter adapter = new ArrayAdapter(mcontext, Android.Resource.Layout.SimpleListItem1, helpList);
-                    list.Adapter = adapter;
+                        ShowXml(listModel);
+                      
+                        Activity.RunOnUiThread(() => 
+                        {
+                          while (prg < 100)
+                          {
+                              prg += 50;
+                              progressDialog.Progress = prg;                        
+                            
+                          }
+                          ArrayAdapter adapter = new ArrayAdapter(mContext, Android.Resource.Layout.SimpleListItem1, showingList);
 
-                    e.Handled = true;
+                          listView.Adapter = adapter;
+                          progressDialog.Dismiss();
+                          InputMethodManager hideKeyboardInSearchMode = (InputMethodManager)mContext.GetSystemService(Context.InputMethodService);
+                          hideKeyboardInSearchMode.HideSoftInputFromWindow(inputTextView.WindowToken, 0);
+                         
+                          e.Handled = true;
+                        });
+
+                    })).Start();
+           
                 }
+              
             };
 
-           
+            listView.ItemClick += (s, e) =>
+            {
+                FrDetails fragmentDetails = new FrDetails();
+                string[] obj = new string[5];
 
-            return view;
+                obj[0] = helpList[e.Position].ActualiteID;
+                obj[1] = helpList[e.Position].Date;
+                obj[2] = helpList[e.Position].Titre;
+                obj[3] = helpList[e.Position].Photo;
+                obj[4] = helpList[e.Position].Details;
+
+
+                Bundle buns = new Bundle();
+                buns.PutStringArray("detailsID", obj);
+
+                fragmentDetails.Arguments = buns;
+                var tran = FragmentManager.BeginTransaction();
+                tran.Add(Resource.Id.content_frame, fragmentDetails, "fragmentDetails");
+                tran.Show(fragmentDetails);
+                tran.AddToBackStack(null);
+                tran.Commit();
+                tran.Hide(this);
+            };
+         return view;
         }
-        private void showXML(List<string> inList)
+
+
+        private void ShowXml(List<string> inList)
         {
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load("https://www.meilleurescpi.com/actualite-liste-xml/");
-            XmlNodeList nodeList = xmldoc.DocumentElement.SelectNodes("/actualites/actualite ");
+            SearchXml();
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load("https://www.meilleurescpi.com/actualite-liste-xml/");
+            XmlNodeList nodeList = xmlDocument.DocumentElement.SelectNodes("/actualites/actualite ");
 
             foreach (var it in inList)
             {
@@ -70,8 +134,16 @@ namespace EcommerceFrench.Fragments
 
                     if (s==it)
                     {
-                        string m1 = node.SelectSingleNode("titre").InnerText;
-                        helpList.Add(m1);
+                        ActualitesModel actuModels = new ActualitesModel();
+
+                        actuModels.ActualiteID = node.Attributes["id"].Value;
+                        actuModels.Photo = node.SelectSingleNode("photo").InnerText;
+                        actuModels.Titre = node.SelectSingleNode("titre").InnerText;
+                        actuModels.Date = node.SelectSingleNode("date").InnerText;
+                        actuModels.Details = node.SelectSingleNode("contenu").InnerText;
+                        string strTitle = node.SelectSingleNode("titre").InnerText;
+                        showingList.Add(strTitle);
+                        helpList.Add(actuModels);
 
                     }
 
@@ -81,27 +153,26 @@ namespace EcommerceFrench.Fragments
            
 
         }
-        private  void searchxml()
+        private  void SearchXml()
         {
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load("http://www.meilleurescpi.com/actualite-listeRub-xml");
-            XmlNodeList nodelist = xmldoc.DocumentElement.SelectNodes("/motscles/motcle ");
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load("http://www.meilleurescpi.com/actualite-listeRub-xml");
+            XmlNodeList nodelist = xmlDocument.DocumentElement.SelectNodes("/motscles/motcle ");
 
             
             foreach (XmlNode node in nodelist)
             {
-                string s = node.SelectSingleNode("mot").InnerText;
+                string singleNode = node.SelectSingleNode("mot").InnerText;
                 
-                if (s.Contains(value4Input))
+                if (singleNode.Contains(valueForInput))
                 {
-                    string m1 = node.Attributes["id"].Value.ToString();
-                    listModel.Add(m1);
+                    string strId = node.Attributes["id"].Value.ToString();
+                    listModel.Add(strId);
                    
                 }
 
             }
             
-
         }  
     }
 }

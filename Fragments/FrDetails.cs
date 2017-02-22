@@ -13,14 +13,21 @@ using Android.Widget;
 using System.Xml;
 using EcommerceFrench.Models;
 using Android.Text;
+using Android.Webkit;
+using Square.Picasso;
 
 namespace EcommerceFrench.Fragments
 {
     public class FrDetails : Fragment
     {
+
+       
+        public static string  photoUrl, strHead, strDate, strContent;
+
+        private Context mContext;
+
         List<ActualitesModel> listModel = new List<ActualitesModel>();
-        public static string data;
-        public static string id,photourl,shead,sdate,scontent;
+ 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,28 +37,39 @@ namespace EcommerceFrench.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.fragDetails, container, false);
-            ImageView image = view.FindViewById<ImageView>(Resource.Id.imgDetails);
-            TextView date = view.FindViewById<TextView>(Resource.Id.txtDate);
-            TextView head = view.FindViewById<TextView>(Resource.Id.txtHeading);
-            TextView content = view.FindViewById<TextView>(Resource.Id.txtContent);
+            WebView webWiew = view.FindViewById<WebView>(Resource.Id.webView1);
+            ImageView image = view.FindViewById<ImageView>(Resource.Id.image1);
+            TextView date = view.FindViewById<TextView>(Resource.Id.txdate);
+            TextView head = view.FindViewById<TextView>(Resource.Id.txhead);
+            webWiew.Settings.JavaScriptEnabled = true;
 
-            string[] retrive = Arguments.GetStringArray("detailsID");
+            string[] retrieve = new string[5];
 
-            sdate = retrive[1];
-            shead = retrive[2];
-            photourl = retrive[3];
-            scontent = retrive[4];
+            retrieve = Arguments.GetStringArray("detailsID");
+
+            strDate = retrieve[1];
+            strHead = retrieve[2];
+            photoUrl = retrieve[3];
+            strContent = retrieve[4];
+            Picasso.With(mContext).Load(photoUrl).Into(image);
          
-            var imgBitmap = Utility.GetImageBitmapFromUrl(photourl);
-            image.SetImageBitmap(imgBitmap);
-            head.Text = shead;
-            date.Text = sdate;
-            content.TextFormatted = Html.FromHtml(scontent);
+            head.Text = strHead;
+            date.Text = strDate;
+
+            webWiew.LoadDataWithBaseURL("https://www.meilleurescpi.com/actualite-liste-xml/", strContent, "text/html", "UTF-8", "about:blank");
 
             return view;
         }
 
-       
+        public override void OnDetach()
+        {
+            base.OnDetach();
+
+            var fr = FragmentManager.BeginTransaction();
+            fr.Hide(this);
+            fr.Commit();
+
+        }
 
     }
 }

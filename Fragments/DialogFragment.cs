@@ -15,7 +15,7 @@ namespace EcommerceFrench.Fragments
     class DialogFragmentt : DialogFragment
     {
         public static DialogFragmentt NewInstance(string Title,
-       string Message, bool Indeterminate, bool Cancelable)
+        string Message, bool Indeterminate, bool Cancelable)
         {
             DialogFragmentt progress = new DialogFragmentt();
 

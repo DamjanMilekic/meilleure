@@ -19,25 +19,32 @@ namespace EcommerceFrench
     class Utility
     {
 
-        
-
         public static Bitmap GetImageBitmapFromUrl(string url)
         {
             Bitmap imageBitmap = null;
 
             using (var webClient = new WebClient())
             {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
+                try
                 {
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    var imageBytes = webClient.DownloadData(url);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
                 }
+                catch (Exception e)
+                {
+
+                    throw new Exception (e.Message);
+                }
+             
             }
 
             return imageBitmap;
         }
 
-        public static void SetActionbarText(Activity activity, string text)
+        public static void SetActionBarText(Activity activity, string text)
         {
            
             activity.ActionBar.SetHomeButtonEnabled(false);
@@ -49,7 +56,7 @@ namespace EcommerceFrench
             linearLayout.SetGravity(GravityFlags.CenterVertical);
 
             LinearLayout.LayoutParams textViewParameters =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
+            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
             textViewParameters.RightMargin = (int)(40 * activity.Resources.DisplayMetrics.Density);
             TextView modelTitle = new TextView(activity);
             modelTitle.Text = text;
@@ -57,9 +64,9 @@ namespace EcommerceFrench
             modelTitle.SetTextColor(Android.Graphics.Color.White);
             modelTitle.SetTextSize(Android.Util.ComplexUnitType.Dip, 50);
             linearLayout.AddView(modelTitle, textViewParameters);
-            ActionBar.LayoutParams actionbarParams =
-                new ActionBar.LayoutParams(ActionBar.LayoutParams.MatchParent, ActionBar.LayoutParams.MatchParent);
-            activity.ActionBar.SetCustomView(linearLayout, actionbarParams);
+            ActionBar.LayoutParams actionBarParams =
+            new ActionBar.LayoutParams(ActionBar.LayoutParams.MatchParent, ActionBar.LayoutParams.MatchParent);
+            activity.ActionBar.SetCustomView(linearLayout, actionBarParams);
         }
 
 

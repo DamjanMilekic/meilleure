@@ -15,122 +15,223 @@ using SlidingTabLayoutTutorial;
 using Java.Lang;
 using System.Threading;
 using System.Xml;
+using Android.Views.InputMethods;
+using Android.Content.PM;
 
 namespace EcommerceFrench
 {
-    [Activity( MainLauncher = true, Icon = "@drawable/icon",Theme="@style/CustomActionBarTheme")]
+    [Activity( MainLauncher = true, Icon = "@drawable/icon",Theme="@style/CustomActionBarTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
-        private   List<MenuModel> leftItem = new List<MenuModel>();
+        private List<MenuModel> leftItem = new List<MenuModel>();
         private ListView leftList;
-        private DrawerLayout mdrawerLayout;
+        private DrawerLayout mDrawerLayout;
         private ActionBarDrawerToggle drawerToggle;
-        private  EditText search;
+        private EditText searchText;
+        private SearchView searchView;
+
         private Android.App.Fragment currentFragment;
         private FrSCPI fragmentSCPI;
         private FrSearch fragmentSearch;
         private FrActualites fragmentActualites;
-
-        public MainActivity() {}
+      
+       
+       // public MainActivity() {}
 
         protected override void OnCreate(Bundle bundle)
         {
            
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            Utility.SetActionbarText(this, "meilleure");
-            mdrawerLayout = FindViewById<DrawerLayout>(Resource.Id.myDrawer);
+            Utility.SetActionBarText(this, "meilleure");
+            mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.myDrawer);
             leftList = FindViewById<ListView>(Resource.Id.leftListView);
-            search = FindViewById<EditText>(Resource.Id.txsearch);
+            searchText = FindViewById<EditText>(Resource.Id.txSearch);
+
+            
+           
 
             leftList.Tag = 0;
-            search.Tag = 1;
+            searchText.Tag = 1;
            
             fragmentActualites = new FrActualites();
             fragmentSCPI = new FrSCPI();
             fragmentSearch = new FrSearch();
+          
+        
            
-             var tran = FragmentManager.BeginTransaction();
-             tran.Add(Resource.Id.content_frame, fragmentSCPI, "FragmentSCPI");
-             tran.Commit();
+            var tran = FragmentManager.BeginTransaction();
+            tran.Add(Resource.Id.content_frame, fragmentSearch, "fragmentSearch");
+            tran.Add(Resource.Id.content_frame, fragmentActualites, "fragmentActualites");
+            tran.Add(Resource.Id.content_frame, fragmentSCPI, "FragmentSCPI");     
+            tran.Show(fragmentSCPI);
+            tran.Commit();
 
-
-            var tranz = FragmentManager.BeginTransaction();
-
+            var tranDialog = FragmentManager.BeginTransaction();
             BanerDialog dialfrag = new BanerDialog();
-            dialfrag.Show(tranz, "dialog"); ;
+            dialfrag.Show(tranDialog, "dialog"); ;
 
             currentFragment = fragmentSCPI;
 
-            addDrawer();
+            AddDrawer();
            
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayShowTitleEnabled(true);
 
-            listeners();
+            Listeners();
         }
-     
-        private void listeners()
+
+        private void Listeners()
         {
-            mdrawerLayout.SetDrawerListener(drawerToggle);
+            
+            mDrawerLayout.SetDrawerListener(drawerToggle);
             leftList.ItemClick += LeftList_ItemClick;
 
         }
 
+        public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
+        {
+            if (e.KeyCode == Keycode.Back)
+            {
+                var tr1 = FragmentManager.BeginTransaction();
+                tr1.Show(currentFragment);               
+                tr1.Commit();
+            }
+
+            return base.OnKeyDown(keyCode, e);
+        }
+     
         private void LeftList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            if (leftItem[e.Position].menuText == "SCPI")
+            if (leftItem[e.Position].MenuText == "SCPI")
             {
-               
-                if (currentFragment == fragmentSCPI)
+   
+                Android.App.Fragment fragmentDetails = FragmentManager.FindFragmentByTag("fragmentDetails");
+                Android.App.Fragment fragmentQuick = FragmentManager.FindFragmentByTag("fragmentQuick");
+                if (fragmentDetails != null)
                 {
-                    mdrawerLayout.CloseDrawer(leftList);
-                    return; 
+                    if (fragmentDetails is FrDetails)
+                    {
+                        var tr = FragmentManager.BeginTransaction();
+                        FragmentManager.PopBackStack();
+                        ShowFragment(fragmentSCPI);
+                        tr.Commit();
+                        var tran = FragmentManager.BeginTransaction();
+                        BanerDialog banerDialog = new BanerDialog();
+                        banerDialog.Show(tran, "dialog");
+                        if (fragmentQuick != null)
+                        {
+                            if (fragmentQuick is FrQuickSearch)
+                            {
+                                var tr1 = FragmentManager.BeginTransaction();
+                                tr1.Hide(fragmentQuick);
+                                tr1.Commit();
+                            }
+                        }
+                        mDrawerLayout.CloseDrawer(leftList);
+                       
+
+                    }
                 }
-                replaceFrag(fragmentSCPI);
-                var tran = FragmentManager.BeginTransaction();
+               
               
-                BanerDialog dialfrag = new BanerDialog();
-                dialfrag.Show(tran, "dialog");
+                else
+                {
+                    ShowFragment(fragmentSCPI);
+                    mDrawerLayout.CloseDrawer(leftList);
+                    var tran = FragmentManager.BeginTransaction();
+                    BanerDialog banerDial = new BanerDialog();
+                    banerDial.Show(tran, "dialog");
+                   
+                }
 
-                mdrawerLayout.CloseDrawer(leftList);
+              
             }
-            if (leftItem[e.Position].menuText == "ACTUALITES")
+            if (leftItem[e.Position].MenuText == "ACTUALITES")
             {
-                mdrawerLayout.CloseDrawer(leftList);
-            
-                replaceFrag(fragmentActualites);
-             
+
+                Android.App.Fragment fragmentDetails = FragmentManager.FindFragmentByTag("fragmentDetails");
+                Android.App.Fragment fragmentQuick = FragmentManager.FindFragmentByTag("fragmentQuick");
+                if (fragmentDetails != null)
+                {
+                    if (fragmentDetails is FrDetails)
+                    {
+                        var tr = FragmentManager.BeginTransaction();
+                        FragmentManager.PopBackStack();
+                        ShowFragment(fragmentActualites);
+                        tr.Commit();
+                        if (fragmentQuick != null)
+                        {
+                            if (fragmentQuick is FrQuickSearch)
+                            {
+                                var tr1 = FragmentManager.BeginTransaction();
+                                tr1.Hide(fragmentQuick);
+                                tr1.Commit();
+                            }
+                        }
+                        mDrawerLayout.CloseDrawer(leftList);
+                       
+                    }
+                }
+                else
+                {
+                    ShowFragment(fragmentActualites);
+                    mDrawerLayout.CloseDrawer(leftList);
+
+                }
+
             }
-            if (leftItem[e.Position].menuText == "RECHERCHER")
+            if (leftItem[e.Position].MenuText == "RECHERCHER")
             {
-                replaceFrag(fragmentSearch);
 
-                mdrawerLayout.CloseDrawer(leftList);
+                Android.App.Fragment fragmentDetails = FragmentManager.FindFragmentByTag("fragmentDetails");
+                Android.App.Fragment fragmentQuick = FragmentManager.FindFragmentByTag("fragmentQuick");
+                if (fragmentDetails != null)
+                {
+                    if (fragmentDetails is FrDetails)
+                    {
+                        var tr = FragmentManager.BeginTransaction();
+                        FragmentManager.PopBackStack();
+                        ShowFragment(fragmentSearch);
+                        tr.Commit();
+                        if (fragmentQuick != null)
+                        {
+                            if (fragmentQuick is FrQuickSearch)
+                            {
+                                var tr1 = FragmentManager.BeginTransaction();
+                                tr1.Hide(fragmentQuick);
+                                tr1.Commit();
+
+                            }
+                        }
+                        mDrawerLayout.CloseDrawer(leftList);
+                    
+                    }
+                }
+                else
+                {
+                    ShowFragment(fragmentSearch);
+                    var tran = FragmentManager.BeginTransaction();
+                
+                    mDrawerLayout.CloseDrawer(leftList);
+                }
 
             }
-            }
 
+       }
+       
         #region fragment
-        public void replaceFrag(Android.App.Fragment replacable)
-        {
 
-            var trans = FragmentManager.BeginTransaction();
-            trans.Replace(Resource.Id.content_frame, replacable);
-            trans.AddToBackStack(null);
-            trans.Commit();
-            currentFragment = replacable;
-
-        }
-        public void showFrag(Android.App.Fragment fraggy)
+        public void ShowFragment(Android.App.Fragment fraggy)
         {
-            //unused
+          
             var trans = FragmentManager.BeginTransaction();
             if (currentFragment != null)
             {
                 trans.Hide(currentFragment);
             }
+
             trans.Show(fraggy);
             trans.AddToBackStack(null);
             trans.Commit();
@@ -144,7 +245,6 @@ namespace EcommerceFrench
         protected override void OnPostCreate(Bundle savedInstanceState)
         {
             base.OnPostCreate(savedInstanceState);
-
             drawerToggle.SyncState();
         }
         public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
@@ -153,80 +253,119 @@ namespace EcommerceFrench
             drawerToggle.OnConfigurationChanged(newConfig);
 
         }
-        public override bool OnCreateOptionsMenu(IMenu menu)
+         
+        public override bool OnCreateOptionsMenu(IMenu Imenu)
         {
-            MenuInflater.Inflate(Resource.Menu.action_bar, menu);
-            return base.OnCreateOptionsMenu(menu);
-        }
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
+            MenuInflater.Inflate(Resource.Menu.action_bar, Imenu);
+            var item = Imenu.FindItem(Resource.Id.searchActionBar);
 
-
-            if (drawerToggle.OnOptionsItemSelected(item))
+           
+            var searchViewHelp = MenuItemCompat.GetActionView(item);
+            
+            searchView = searchViewHelp.JavaCast<SearchView>();
+            
+                 
+             
+            searchView.QueryTextSubmit += (s, e) =>
             {
-                if (mdrawerLayout.IsDrawerOpen(search))
+                FrQuickSearch fragmentQuick = new FrQuickSearch();
+                
+                Bundle bun = new Bundle();
+                bun.PutString("searchQuery",e.Query);
+
+                fragmentQuick.Arguments = bun;
+
+                var tran = FragmentManager.BeginTransaction();
+                tran.Add(Resource.Id.content_frame, fragmentQuick, "fragmentQuick");
+
+                tran.Show(fragmentQuick);
+                tran.AddToBackStack(null);
+                tran.Commit();
+                tran.Hide(currentFragment);
+
+                InputMethodManager hideKeyboard = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                hideKeyboard.HideSoftInputFromWindow(searchView.WindowToken, 0);
+
+                e.Handled = true;
+            };
+
+            return true;
+        }
+
+       
+
+        public override bool OnOptionsItemSelected(IMenuItem IMenuItem)
+        {
+
+
+            if (drawerToggle.OnOptionsItemSelected(IMenuItem))
+            {
+                if (mDrawerLayout.IsDrawerOpen(searchText))
                 {
-                    mdrawerLayout.CloseDrawer(search);
+                    mDrawerLayout.CloseDrawer(searchText);
                 }
                 return true;
             }
 
-            switch (item.ItemId)
+            switch (IMenuItem.ItemId)
             {
-                case Resource.Id.search:
-                    if (mdrawerLayout.IsDrawerOpen(search))
+                case Resource.Id.searchInput:
+                    if (mDrawerLayout.IsDrawerOpen(searchText))
                     {
-                        mdrawerLayout.CloseDrawer(search);
+                        mDrawerLayout.CloseDrawer(searchText);
                     }
                     else
                     {
-                        mdrawerLayout.CloseDrawer(leftList);
-                        mdrawerLayout.OpenDrawer(search);
+                        mDrawerLayout.CloseDrawer(leftList);
+                        mDrawerLayout.OpenDrawer(searchText);
                     }
                     return true;
 
 
 
                 default:
-                    return base.OnOptionsItemSelected(item);
+                    return base.OnOptionsItemSelected(IMenuItem);
             }
         }
-        private void addDrawer()
+        private void AddDrawer()
         {
-            drawerToggle = new MyActionBarDrawerToggle(this, mdrawerLayout, Resource.Drawable.drawerbutton, Resource.String.open_drawer, Resource.String.close_drawer);
-            addDrawerMenu();
+            drawerToggle = new MyActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable.drawerbutton, Resource.String.open_drawer, Resource.String.close_drawer);
+            AddDrawerMenu();
             DrawerListAdapter myDrawerAdapter = new DrawerListAdapter(this, leftItem);
             leftList.Adapter = myDrawerAdapter;
         }
-        public void addDrawerMenu()
+        public void AddDrawerMenu()
         {
             MenuModel mod = new MenuModel();
-            mod.menuImage = Resource.Drawable.first;
-            mod.menuText = "SCPI";
+            mod.MenuImage = Resource.Drawable.first;
+            mod.MenuText = "SCPI";
             leftItem.Add(mod);
             MenuModel mod2 = new MenuModel();
-            mod2.menuImage = Resource.Drawable.second;
-            mod2.menuText = "OUTILS";
+            mod2.MenuImage = Resource.Drawable.second;
+            mod2.MenuText = "OUTILS";
             leftItem.Add(mod2);
             MenuModel mod3 = new MenuModel();
-            mod3.menuImage = Resource.Drawable.third;
-            mod3.menuText = "ACTUALITES";
+            mod3.MenuImage = Resource.Drawable.third;
+            mod3.MenuText = "ACTUALITES";
             leftItem.Add(mod3);
             MenuModel mod4 = new MenuModel();
-            mod4.menuImage = Resource.Drawable.fourth;
-            mod4.menuText = "RECHERCHER";
+            mod4.MenuImage = Resource.Drawable.fourth;
+            mod4.MenuText = "RECHERCHER";
             leftItem.Add(mod4);
             MenuModel mod5 = new MenuModel();
-            mod5.menuImage = Resource.Drawable.fifth;
-            mod5.menuText = "SOCIETE";
+            mod5.MenuImage = Resource.Drawable.fifth;
+            mod5.MenuText = "SOCIETE";
             leftItem.Add(mod5);
             MenuModel mod6 = new MenuModel();
-            mod6.menuImage = Resource.Drawable.sixth;
-            mod6.menuText = "CONTACTEZ-NOUZ";
+            mod6.MenuImage = Resource.Drawable.sixth;
+            mod6.MenuText = "CONTACTEZ-NOUZ";
             leftItem.Add(mod6);
 
         }
-#endregion
+        #endregion
+
+      
     }
+  
 }
 

@@ -14,11 +14,11 @@ namespace EcommerceFrench.Models
 {
     class ActualitesModel
     {
-        public string actualiteID { get; set; }
-        public string photo { get; set; }
-        public string titre { get; set; }
-        public string date { get; set; }
-        public string details { get; set; }
+        public string ActualiteID { get; set; }
+        public string Photo { get; set; }
+        public string Titre { get; set; }
+        public string Date { get; set; }
+        public string Details { get; set; }
 
     }
 }

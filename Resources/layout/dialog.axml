@@ -14,9 +14,9 @@
             android:id="@+id/imgBaner"
             android:layout_gravity="center" />
         <ImageButton
-            android:src="@drawable/xicon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:src="@drawable/xiconi"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/xicon"
             android:foregroundGravity="right"
             android:layout_gravity="top|right" />

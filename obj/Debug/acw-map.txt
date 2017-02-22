@@ -18,6 +18,10 @@ EcommerceFrench.ActualitesListAdapter, EcommerceFrench;md5d7dcd2bb1736f3ee2f2aa9
 EcommerceFrench.ActualitesListAdapter, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter
 EcommerceFrench.ActualitesListAdapter;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter
 ecommercefrench.ActualitesListAdapter;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter
+EcommerceFrench.ActualitesListAdapter/MyViewHolder, EcommerceFrench;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter_MyViewHolder
+EcommerceFrench.ActualitesListAdapter+MyViewHolder, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter_MyViewHolder
+EcommerceFrench.ActualitesListAdapter.MyViewHolder;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter_MyViewHolder
+ecommercefrench.ActualitesListAdapter_MyViewHolder;md5d7dcd2bb1736f3ee2f2aa92a1a431543.ActualitesListAdapter_MyViewHolder
 EcommerceFrench.DrawerListAdapter, EcommerceFrench;md5d7dcd2bb1736f3ee2f2aa92a1a431543.DrawerListAdapter
 EcommerceFrench.DrawerListAdapter, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d7dcd2bb1736f3ee2f2aa92a1a431543.DrawerListAdapter
 EcommerceFrench.DrawerListAdapter;md5d7dcd2bb1736f3ee2f2aa92a1a431543.DrawerListAdapter
@@ -46,6 +50,10 @@ EcommerceFrench.Fragments.FrDetails, EcommerceFrench;md59dc81631ca4a297804a9fb15
 EcommerceFrench.Fragments.FrDetails, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59dc81631ca4a297804a9fb150610f5fd.FrDetails
 EcommerceFrench.Fragments.FrDetails;md59dc81631ca4a297804a9fb150610f5fd.FrDetails
 ecommercefrench.fragments.FrDetails;md59dc81631ca4a297804a9fb150610f5fd.FrDetails
+EcommerceFrench.Fragments.FrQuickSearch, EcommerceFrench;md59dc81631ca4a297804a9fb150610f5fd.FrQuickSearch
+EcommerceFrench.Fragments.FrQuickSearch, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59dc81631ca4a297804a9fb150610f5fd.FrQuickSearch
+EcommerceFrench.Fragments.FrQuickSearch;md59dc81631ca4a297804a9fb150610f5fd.FrQuickSearch
+ecommercefrench.fragments.FrQuickSearch;md59dc81631ca4a297804a9fb150610f5fd.FrQuickSearch
 EcommerceFrench.Fragments.FrSCPI, EcommerceFrench;md59dc81631ca4a297804a9fb150610f5fd.FrSCPI
 EcommerceFrench.Fragments.FrSCPI, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59dc81631ca4a297804a9fb150610f5fd.FrSCPI
 EcommerceFrench.Fragments.FrSCPI;md59dc81631ca4a297804a9fb150610f5fd.FrSCPI
@@ -54,6 +62,18 @@ EcommerceFrench.Fragments.FrSearch, EcommerceFrench;md59dc81631ca4a297804a9fb150
 EcommerceFrench.Fragments.FrSearch, EcommerceFrench, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59dc81631ca4a297804a9fb150610f5fd.FrSearch
 EcommerceFrench.Fragments.FrSearch;md59dc81631ca4a297804a9fb150610f5fd.FrSearch
 ecommercefrench.fragments.FrSearch;md59dc81631ca4a297804a9fb150610f5fd.FrSearch
+Square.OkHttp.Call/ActionCallback, Square.OkHttp;com.squareup.okhttp.Call_ActionCallback
+Square.OkHttp.Call+ActionCallback, Square.OkHttp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null;com.squareup.okhttp.Call_ActionCallback
+Square.OkHttp.Call.ActionCallback;com.squareup.okhttp.Call_ActionCallback
+com.squareup.okhttp.Call_ActionCallback;com.squareup.okhttp.Call_ActionCallback
+Square.Picasso.RequestCreator/ActionCallback, Square.Picasso;com.squareup.picasso.RequestCreator_ActionCallback
+Square.Picasso.RequestCreator+ActionCallback, Square.Picasso, Version=2.5.2.0, Culture=neutral, PublicKeyToken=null;com.squareup.picasso.RequestCreator_ActionCallback
+Square.Picasso.RequestCreator.ActionCallback;com.squareup.picasso.RequestCreator_ActionCallback
+com.squareup.picasso.RequestCreator_ActionCallback;com.squareup.picasso.RequestCreator_ActionCallback
+Square.Picasso.Picasso/IListenerImplementor, Square.Picasso;mono.com.squareup.picasso.Picasso_ListenerImplementor
+Square.Picasso.Picasso+IListenerImplementor, Square.Picasso, Version=2.5.2.0, Culture=neutral, PublicKeyToken=null;mono.com.squareup.picasso.Picasso_ListenerImplementor
+Square.Picasso.Picasso.IListenerImplementor;mono.com.squareup.picasso.Picasso_ListenerImplementor
+mono.com.squareup.picasso.Picasso_ListenerImplementor;mono.com.squareup.picasso.Picasso_ListenerImplementor
 Android.Support.V4.App.SharedElementCallback/IOnSharedElementsReadyListenerImplementor, Xamarin.Android.Support.Compat;mono.android.support.v4.app.SharedElementCallback_OnSharedElementsReadyListenerImplementor
 Android.Support.V4.App.SharedElementCallback+IOnSharedElementsReadyListenerImplementor, Xamarin.Android.Support.Compat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;mono.android.support.v4.app.SharedElementCallback_OnSharedElementsReadyListenerImplementor
 Android.Support.V4.App.SharedElementCallback.IOnSharedElementsReadyListenerImplementor;mono.android.support.v4.app.SharedElementCallback_OnSharedElementsReadyListenerImplementor

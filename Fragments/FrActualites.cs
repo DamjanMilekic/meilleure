@@ -20,89 +20,85 @@ namespace EcommerceFrench.Fragments
 {
     public class FrActualites : Fragment
     {
-       List<ActualitesModel> listModel = new List<ActualitesModel>();
-        private Context mcontext;
+      
+        private Context mContext;
 
-       
+        List<ActualitesModel> listModel = new List<ActualitesModel>();
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
 
-            mcontext = container.Context;
+            mContext = container.Context;
             View view = inflater.Inflate(Resource.Layout.fragactivities, container, false);
-            
-            ListView list = view.FindViewById<ListView>(Resource.Id.listView1);
 
-            //DialogFragmentt progress = DialogFragmentt.NewInstance("Page de chargement",
-            //"S'il vous plaît, attendez", true, false);
-            //progress.Show(this.FragmentManager.BeginTransaction(), "PROGRESS");
+            ListView listViewActualites = view.FindViewById<ListView>(Resource.Id.listView1);
 
-            //System.Threading.ThreadPool.QueueUserWorkItem(o =>
-            //{
-            //    System.Threading.Thread.Sleep(3000);
-            //    RunOnUiThread(() => { progress.Dismiss(); });
-            //});
+            ActualitesListAdapter listAdapter = new ActualitesListAdapter(mContext, listModel);
+            listViewActualites.Adapter = listAdapter;
 
-            ActualitesListAdapter adapter = new ActualitesListAdapter(mcontext, listModel);
-            list.Adapter = adapter;
-
-            LoadXML();
-            list.ItemClick += List_ItemClick;
+            LoadXml();
+            listViewActualites.ItemClick += List_ItemClick;
 
             return view;
 
         }
 
-        
-         private void List_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+    
+        private void List_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            FrDetails details = new FrDetails();
-            string id = listModel[e.Position].actualiteID;
-            string date = listModel[e.Position].date;
-            string title = listModel[e.Position].titre;
-            string photo = listModel[e.Position].photo;
-            string content = listModel[e.Position].details;
-
+           FrDetails details = new FrDetails();
             string[] obj = new string[5];
-            obj[0] = id;
-            obj[1] = date;
-            obj[2] = title;
-            obj[3] = photo;
-            obj[4] = content;
 
-            Bundle buns = new Bundle();
-            buns.PutStringArray("detailsID", obj);
+            obj[0] = listModel[e.Position].ActualiteID;
+            obj[1] = listModel[e.Position].Date;
+            obj[2] = listModel[e.Position].Titre;
+            obj[3] = listModel[e.Position].Photo;
+            obj[4] = listModel[e.Position].Details;
 
-            details.Arguments = buns;
-           
+
+             Bundle buns = new Bundle();
+             buns.PutStringArray("detailsID", obj);
+
+            details.Arguments = buns; 
             var tran = FragmentManager.BeginTransaction();
-            tran.Replace(Resource.Id.content_frame, details);
-            tran.Hide(new FrActualites());
+            tran.Add(Resource.Id.content_frame, details, "fragmentDetails");
+            tran.Show(details);
             tran.AddToBackStack(null);
             tran.Commit();
+            tran.Hide(this);
+
+
         }
      
 
-        private void LoadXML()
+        private void LoadXml()
         {
-          
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("https://www.meilleurescpi.com/actualite-liste-xml/");
-            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/actualites/actualite ");
-            foreach (XmlNode node in nodeList)
-            {
-                ActualitesModel actumod = new ActualitesModel();
 
-                actumod.actualiteID = node.Attributes["id"].Value;
-                actumod.photo = node.SelectSingleNode("photo").InnerText;
-                actumod.titre = node.SelectSingleNode("titre").InnerText;
-                actumod.date = node.SelectSingleNode("date").InnerText;
-                actumod.details = node.SelectSingleNode("contenu").InnerText;
-                listModel.Add(actumod);
-             
-               
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load("https://www.meilleurescpi.com/actualite-liste-xml/");
+                XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/actualites/actualite ");
+                foreach (XmlNode node in nodeList)
+                {
+                    ActualitesModel actuModel = new ActualitesModel();
+
+                    actuModel.ActualiteID = node.Attributes["id"].Value;
+                    actuModel.Photo = node.SelectSingleNode("photo").InnerText;
+                    actuModel.Titre = node.SelectSingleNode("titre").InnerText;
+                    actuModel.Date = node.SelectSingleNode("date").InnerText;
+                    actuModel.Details = node.SelectSingleNode("contenu").InnerText;
+                    listModel.Add(actuModel);
+                }
             }
-         
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+      
         }
+         
+        
     }
 }

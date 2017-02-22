@@ -14,7 +14,8 @@ namespace EcommerceFrench.Models
 {
     class MenuModel
     {
-        public int menuImage { get; set; }
-        public string menuText { get; set; }
+        public int MenuImage { get; set; }
+        public string MenuText { get; set; }
+       
     }
 }
